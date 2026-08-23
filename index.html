@@ -51,7 +51,9 @@
   .c-kil{background:var(--kiln)} .c-cob{background:var(--cobalt)} .c-olv{background:var(--olive)}
 
   /* ————— header ————— */
-  header{padding:1.5rem 0}
+  header{position:sticky;top:0;z-index:20;background:rgba(247,246,242,.92);
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(43,46,48,.08);padding:1rem 0}
   .maker-mark{display:flex;justify-content:space-between;align-items:center;gap:1rem}
   .maker-mark .name{font-family:var(--mono);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase}
   nav{display:flex;gap:1.6rem;font-family:var(--mono);font-size:.75rem;letter-spacing:.08em}
