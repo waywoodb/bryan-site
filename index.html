@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bryan Mackenzie — Ceramics</title>
+<meta name="description" content="Ceramics by Bryan Mackenzie. Fifty years shaping steel, now shaping clay. Celadon, colour and transparency, fired in a wood-fired kiln in Melbourne.">
+<style>
+  /* ————— Glaze + steel token system —————
+     porcelain  #F7F6F2  ground (cool porcelain white, not cream)
+     graphite   #2B2E30  ink / steel
+     zinc       #6E7477  secondary steel
+     celadon    #A8BCA4  primary glaze accent
+     celadon-d  #7E9A7C  deep celadon
+     chrome     #F2B705  chrome yellow (the Parkside stair)
+     kiln       #E86A2B  kiln orange
+     cobalt     #6E87C0  cornflower cobalt
+     olive      #55603A  bottle green
+  */
+  :root{
+    --porcelain:#F7F6F2; --graphite:#2B2E30; --zinc:#6E7477;
+    --celadon:#A8BCA4; --celadon-d:#7E9A7C; --chrome:#F2B705;
+    --kiln:#E86A2B; --cobalt:#6E87C0; --olive:#55603A;
+    --serif:'Iowan Old Style','Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
+    --mono:'SF Mono','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace;
+    --measure:62ch;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  }
+  body{
+    background:var(--porcelain); color:var(--graphite);
+    font-family:var(--serif); font-size:1.125rem; line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--celadon-d);outline-offset:3px}
+  ::selection{background:var(--celadon);color:var(--graphite)}
+
+  .wrap{max-width:1060px;margin:0 auto;padding:0 clamp(1.25rem,5vw,3rem)}
+
+  /* ————— chips: the glaze-test motif ————— */
+  .chips{display:flex;gap:6px;align-items:flex-end}
+  .chips span{display:block;width:14px;height:20px;border-radius:2px 2px 3px 3px}
+  .chips span:nth-child(2){height:26px}
+  .chips span:nth-child(4){height:24px}
+  .c-cel{background:var(--celadon)} .c-chr{background:var(--chrome)}
+  .c-kil{background:var(--kiln)} .c-cob{background:var(--cobalt)} .c-olv{background:var(--olive)}
+
+  /* ————— header ————— */
+  header{padding:1.5rem 0}
+  .maker-mark{display:flex;justify-content:space-between;align-items:center;gap:1rem}
+  .maker-mark .name{font-family:var(--mono);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase}
+  nav{display:flex;gap:1.6rem;font-family:var(--mono);font-size:.75rem;letter-spacing:.08em}
+  nav a{text-decoration:none;color:var(--zinc)}
+  nav a:hover{color:var(--graphite)}
+
+  /* ————— hero ————— */
+  .hero{padding:clamp(2.5rem,8vh,6rem) 0 clamp(2rem,6vh,4rem);position:relative}
+  .hero h1{
+    font-weight:400;font-size:clamp(2.4rem,6.4vw,4.6rem);
+    line-height:1.08;letter-spacing:-.015em;max-width:15ch;
+  }
+  .hero h1 em{font-style:italic;color:var(--celadon-d)}
+  .hero .sub{margin-top:1.4rem;max-width:44ch;color:var(--zinc);font-size:1.05rem}
+  .spiral{
+    position:absolute;right:-2%;top:0;width:min(42vw,430px);height:auto;
+    pointer-events:none;opacity:.9
+  }
+  .spiral path{
+    stroke:var(--graphite);stroke-width:1.1;fill:none;
+    stroke-dasharray:2600;stroke-dashoffset:2600;
+    animation:draw 3.2s ease-out .3s forwards;
+  }
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media(max-width:760px){.spiral{position:static;display:block;margin:2rem auto 0;width:70%;opacity:.7}}
+
+  /* ————— photo slots (glaze fields) ————— */
+  .photo{
+    position:relative;border-radius:4px;overflow:hidden;
+    min-height:340px;display:flex;align-items:flex-end;
+  }
+  .photo.tall{min-height:460px}
+  .photo img{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0
+  }
+  .photo .slot-label{
+    position:relative;z-index:1;
+    font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;
+    color:rgba(43,46,48,.75);background:rgba(247,246,242,.82);
+    padding:.45rem .7rem;margin:.8rem;border-radius:3px;
+  }
+  /* glaze pools — replace each .photo's background with the real image */
+  .g-celadon{background:
+    radial-gradient(ellipse 60% 50% at 30% 35%, #C2D2BC 0%, transparent 70%),
+    radial-gradient(ellipse 55% 60% at 75% 70%, #8FAA8B 0%, transparent 72%),
+    radial-gradient(ellipse 90% 80% at 50% 50%, #A8BCA4 0%, #9DB29A 100%)}
+  .g-colour{background:
+    radial-gradient(ellipse 45% 55% at 22% 60%, #F2B705 0%, transparent 68%),
+    radial-gradient(ellipse 40% 50% at 62% 30%, #E86A2B 0%, transparent 66%),
+    radial-gradient(ellipse 50% 60% at 88% 75%, #F5D465 0%, transparent 70%),
+    linear-gradient(160deg,#F9EFD8 0%, #F4DFA8 100%)}
+  .g-table{background:
+    radial-gradient(ellipse 50% 55% at 25% 30%, #8CA3D0 0%, transparent 70%),
+    radial-gradient(ellipse 55% 60% at 75% 65%, #55603A 0%, transparent 72%),
+    radial-gradient(ellipse 45% 50% at 50% 90%, #6E87C0 0%, transparent 70%),
+    linear-gradient(150deg,#E9EBE4 0%, #C9D2C2 100%)}
+  .g-kiln{background:
+    radial-gradient(ellipse 55% 60% at 70% 40%, #E86A2B 0%, transparent 66%),
+    radial-gradient(ellipse 60% 70% at 25% 75%, #7A5C43 0%, transparent 70%),
+    linear-gradient(200deg,#8B8E8C 0%, #5C5F5D 100%)}
+
+  /* ————— sections ————— */
+  section{padding:clamp(3rem,9vh,6.5rem) 0}
+  .eyebrow{
+    display:flex;align-items:center;gap:.9rem;margin-bottom:1.6rem;
+    font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--zinc)
+  }
+  .prose{max-width:var(--measure)}
+  .prose p+p{margin-top:1.1em}
+  .prose .lede{font-size:1.32rem;line-height:1.5}
+  .year{
+    font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;
+    color:var(--celadon-d);display:block;margin:1.6em 0 .25em
+  }
+  .prose p .year:first-child{margin-top:0}
+
+  /* ————— series blocks ————— */
+  .series{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.5rem,4vw,3.5rem);align-items:center;margin-top:3.5rem}
+  .series:first-of-type{margin-top:2rem}
+  .series.flip .photo{order:2}
+  @media(max-width:760px){.series{grid-template-columns:1fr}.series.flip .photo{order:0}}
+  .series h3{font-weight:400;font-size:1.9rem;letter-spacing:-.01em;margin-bottom:.9rem}
+  .series .body p+p{margin-top:1em}
+  .avail{
+    margin-top:1.6rem;padding-top:1.1rem;border-top:1px solid rgba(43,46,48,.14);
+    display:flex;align-items:baseline;justify-content:space-between;gap:1rem;flex-wrap:wrap
+  }
+  .avail em{font-style:italic;color:var(--zinc);font-size:.98rem}
+  .enquire{
+    font-family:var(--mono);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;
+    text-decoration:none;padding:.55rem .95rem;border:1px solid var(--graphite);
+    border-radius:3px;transition:background .2s,color .2s;white-space:nowrap
+  }
+  .enquire:hover{background:var(--graphite);color:var(--porcelain)}
+
+  /* ————— pull quote ————— */
+  .pull{
+    text-align:center;padding:clamp(2.5rem,8vh,5rem) 0;
+  }
+  .pull blockquote{
+    font-size:clamp(1.5rem,3.4vw,2.3rem);font-style:italic;line-height:1.35;
+    max-width:24ch;margin:0 auto;
+  }
+  .pull .attr{margin-top:1.2rem;font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--zinc)}
+
+  /* ————— contact ————— */
+  .contact{background:var(--graphite);color:var(--porcelain)}
+  .contact .eyebrow{color:var(--celadon)}
+  .contact h2{font-weight:400;font-size:clamp(1.8rem,4vw,2.6rem);max-width:20ch;line-height:1.2}
+  .contact p{margin-top:1.1rem;max-width:50ch;color:rgba(247,246,242,.78)}
+  .contact .actions{margin-top:2.2rem;display:flex;gap:1rem;flex-wrap:wrap}
+  .contact .enquire{border-color:var(--porcelain);color:var(--porcelain)}
+  .contact .enquire:hover{background:var(--porcelain);color:var(--graphite)}
+  .contact .enquire.solid{background:var(--celadon);border-color:var(--celadon);color:var(--graphite)}
+  .contact .enquire.solid:hover{background:var(--porcelain);border-color:var(--porcelain)}
+
+  footer{padding:2rem 0;font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;color:var(--zinc);display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+
+  /* build notes for Ben — delete this block + elements when going live */
+  .build-note{
+    font-family:var(--mono);font-size:.7rem;line-height:1.5;color:#8a6d1f;
+    background:#FBF3D9;border:1px dashed #D9C57A;border-radius:3px;
+    padding:.7rem .9rem;margin-top:1rem;max-width:var(--measure)
+  }
+</style>
+</head>
+<body>
+
+<header class="wrap">
+  <div class="maker-mark">
+    <span class="name">Bryan Mackenzie · Ceramics</span>
+    <nav aria-label="Site">
+      <a href="#story">Story</a>
+      <a href="#work">Work</a>
+      <a href="#kiln">Kiln</a>
+      <a href="#enquire">Enquire</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap hero">
+  <svg class="spiral" viewBox="0 0 400 400" aria-hidden="true">
+    <path d="M200,200 m0,-4 a4,4 0 1,1 -0.1,0 M200,200 m0,-16 a16,16 0 1,1 -0.1,0 M200,200 m0,-32 a32,32 0 1,1 -0.1,0 M200,200 m0,-52 a52,52 0 1,1 -0.1,0 M200,200 m0,-76 a76,76 0 1,1 -0.1,0 M200,200 m0,-104 a104,104 0 1,1 -0.1,0 M200,200 m0,-136 a136,136 0 1,1 -0.1,0 M200,200 m0,-172 a172,172 0 1,1 -0.1,0"/>
+  </svg>
+  <h1>Fifty years in steel.<br>Now, <em>clay</em>.</h1>
+  <p class="sub">Bryan Mackenzie spent a lifetime bending steel into spiral staircases. These days he fires porcelain in a wood-fired kiln he built on the factory floor — chasing colour, transparency, and the occasional glorious failure.</p>
+</div>
+
+<div class="wrap">
+  <div class="photo tall g-celadon" role="img" aria-label="Photo slot: hero image">
+    <img src="images/hero-portrait.jpg" alt="Bryan Mackenzie beside three oval wall platters in yellow, orange and pale lemon" loading="lazy" onerror="this.remove()" onload="if(this.nextElementSibling)this.nextElementSibling.style.display='none'">
+      <span class="slot-label">images/hero-portrait.jpg — Bryan with the oval platters (@bryanenz, 15 Dec 2025)</span>
+  </div>
+</div>
+
+<section id="story" class="wrap">
+  <div class="eyebrow">
+    <div class="chips" aria-hidden="true"><span class="c-cel"></span><span class="c-chr"></span><span class="c-kil"></span><span class="c-cob"></span><span class="c-olv"></span></div>
+    An idea in steel
+  </div>
+  <div class="prose">
+    <p class="lede">In 1974, a fitter and turner in inner-north Melbourne wanted a staircase down to the cellar of his terrace house. He couldn't buy a spiral stair in Australia — so he designed one.</p>
+    <p><span class="year">1974 — Fitzroy</span>That staircase became Enzie. Friends wanted one, then their friends did, and soon a showroom opened on Gertrude Street with a factory squeezed out the back, occasionally overflowing into the laneways of Fitzroy. Bryan's modular steel design was so simple and so elegant that a renovator could assemble it in a day.</p>
+    <p><span class="year">1980s — Recognition</span>The awards followed: the Australian Design Award, the BHP Award for Consumer Products, a finalist's place for the Prince Philip Prize for Australian Design. Enzie stairs went on to climb through more than thirteen thousand homes across Australia and beyond — Asia, Europe, the Americas — and the business today carries on with his son William.</p>
+    <p><span class="year">Now — North Fitzroy</span>Bryan still lives where it all started, in a house he and his wife Marija — an artist — rebuilt for the long haul, with a chrome-yellow Enzie spiral at its heart. He chose that stair for its colour and its light, translucent quality. Which, as it turns out, is exactly what he's chasing now — just in a different material.</p>
+  </div>
+  <div class="build-note">BEN — draft bio woven from enzie.com.au's history page and the published Parkside (Austin Maynard Architects) coverage. Have Bryan read and correct it before launch; the yellow-note blocks are build notes and should all be deleted for the live version.</div>
+</section>
+
+<div class="pull wrap">
+  <blockquote>&ldquo;Colour and transparency.&rdquo;</blockquote>
+  <div class="attr">The whole project, in three words of Bryan's</div>
+</div>
+
+<section id="work" class="wrap">
+  <div class="eyebrow">
+    <div class="chips" aria-hidden="true"><span class="c-cel"></span><span class="c-olv"></span><span class="c-cob"></span></div>
+    The work
+  </div>
+
+  <div class="series">
+    <div class="photo g-celadon" role="img" aria-label="Photo slot: celadon series">
+      <img src="images/celadon-bowls.jpg" alt="Celadon-glazed bowls beside rows of small glaze test chips" loading="lazy" onerror="this.remove()" onload="if(this.nextElementSibling)this.nextElementSibling.style.display='none'">
+      <span class="slot-label">images/celadon-bowls.jpg — celadon bowls + glaze chips (@bryanenz, "Today's work", 3 Apr 2025)</span>
+    </div>
+    <div class="body">
+      <h3>Celadon</h3>
+      <p>The green that potters have chased for a thousand years. Bryan's celadons pool soft and deep in the bellies of hand-built bowls — sage through jade to olive — each one glazed against a row of small test chips lined up on the bench like samples in a toolroom. Old habits from a life of precision engineering die hard.</p>
+      <p>No two fire the same. That's the point.</p>
+      <div class="avail">
+        <em>Pieces from this series are available.</em>
+        <a class="enquire" href="#enquire">Enquire</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="series flip">
+    <div class="photo g-colour" role="img" aria-label="Photo slot: colour and transparency series">
+      <img src="images/colour-transparency.jpg" alt="Yellow and orange glazed jugs, tumblers and nesting bowls on a studio shelf" loading="lazy" onerror="this.remove()" onload="if(this.nextElementSibling)this.nextElementSibling.style.display='none'">
+      <span class="slot-label">images/colour-transparency.jpg — frame from "Colour and transparency" reel (@bryanenz, 28 Oct 2025)</span>
+    </div>
+    <div class="body">
+      <h3>Colour &amp; transparency</h3>
+      <p>Chrome yellow, kiln orange, cream — jugs, cups and nesting bowls glazed in the same bold, light-holding colours Bryan loved enough to put a bright yellow spiral staircase in the middle of his own home. These are pieces for the table, made to be used daily and looked through as much as at.</p>
+      <div class="avail">
+        <em>Pieces from this series are available.</em>
+        <a class="enquire" href="#enquire">Enquire</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="series">
+    <div class="photo g-table" role="img" aria-label="Photo slot: tableware series">
+      <img src="images/table-setting.jpg" alt="Table setting of cobalt, olive, grey and sage ceramic pieces with a bottle-green vessel" loading="lazy" onerror="this.remove()" onload="if(this.nextElementSibling)this.nextElementSibling.style.display='none'">
+      <span class="slot-label">images/table-setting.jpg — "Great colours" table setting (@bryanenz, 23 Mar 2025)</span>
+    </div>
+    <div class="body">
+      <h3>The table, assembled</h3>
+      <p>Cornflower blue plates, bottle-green vessels, grey and sage bowls that sit together the way a good room does — nothing matching, everything belonging. Bryan builds these settings piece by piece, and the oval wall platters from the same family hang as quiet colour fields in their own right.</p>
+      <div class="avail">
+        <em>Individual pieces and settings are available.</em>
+        <a class="enquire" href="#enquire">Enquire</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="kiln" class="wrap">
+  <div class="eyebrow">
+    <div class="chips" aria-hidden="true"><span class="c-kil"></span><span class="c-chr"></span></div>
+    Will it hold?
+  </div>
+  <div class="series">
+    <div class="photo g-kiln" role="img" aria-label="Photo slot: kiln build in the Enzie factory">
+      <img src="images/kiln-build.jpg" alt="Bryan laying bricks for a wood-fired kiln on the Enzie factory floor" loading="lazy" onerror="this.remove()" onload="if(this.nextElementSibling)this.nextElementSibling.style.display='none'">
+      <span class="slot-label">images/kiln-build.jpg — frame from the kiln-build reel (@bryanenz, 25 Feb 2026)</span>
+    </div>
+    <div class="body">
+      <h3>A kiln in a stair factory</h3>
+      <p>The firing happens where the steel does. On the floor of the Enzie factory, between the racks of tube and the CNC machines, Bryan stacked the bricks for a wood-fired jet kiln by hand — lots of trial, plenty of error, and a story highlight honestly titled <em>Will it hold?</em></p>
+      <p>Fifty years ago he built the thing he couldn't buy. He still does.</p>
+    </div>
+  </div>
+</section>
+
+<section id="enquire" class="contact">
+  <div class="wrap">
+    <div class="eyebrow">
+      <div class="chips" aria-hidden="true"><span class="c-cel"></span><span class="c-chr"></span><span class="c-kil"></span><span class="c-cob"></span><span class="c-olv"></span></div>
+      Enquire
+    </div>
+    <h2>Every piece here was made by one pair of hands.</h2>
+    <p>If something on this page has caught your eye — a bowl, a setting for the table, a platter for a wall — write to Bryan. He'll tell you what's available, what's still cooling, and what could be made for you.</p>
+    <div class="actions">
+      <a class="enquire solid" href="mailto:EMAIL-TBC@enzie.com.au?subject=Ceramics%20enquiry">Email Bryan</a>
+      <a class="enquire" href="https://www.instagram.com/bryanenz/" rel="noopener">Follow @bryanenz</a>
+    </div>
+    <div class="build-note" style="background:rgba(251,243,217,.12);border-color:rgba(217,197,122,.5);color:#D9C57A">BEN — confirm the enquiry address with Bryan (placeholder mailto in place). If he'd rather not field email directly, swap for a simple form or point it at Instagram DMs.</div>
+  </div>
+</section>
+
+<footer class="wrap">
+  <span>Bryan Mackenzie · Made in Melbourne / Naarm</span>
+  <span><a href="https://enzie.com.au" rel="noopener" style="color:inherit">enzie.com.au</a> · est. 1974</span>
+</footer>
+
+</body>
+</html>
